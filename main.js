@@ -10,7 +10,7 @@ let credential = {
 };
 let Db = require('mongodb').Db;
 let MongoClient = require('mongodb').MongoClient;
-let onlineUrl = "mongodb+srv://backup:CM%40h250194@cluster0.i80ep.mongodb.net/test?authSource=admin&replicaSet=atlas-k1shu9-shard-0&readPreference=primary&appname=MongoDB%20Compass%20Isolated%20Edition&ssl=true";
+let onlineUrl = "mongodb://root:bFP9AZAHWWCT@ec2-13-233-16-167.ap-south-1.compute.amazonaws.com:27017/ABC-dev?connectTimeoutMS=10000&authSource=admin&authMechanism=SCRAM-SHA-1&3t.uriVersion=3&3t.connection.name=Cluster1-shard-0&3t.ssh=true&3t.sshAddress=ec2-13-233-16-167.ap-south-1.compute.amazonaws.com&3t.sshPort=22&3t.sshAuthMode=privateKey&3t.sshUser=bitnami&3t.sshPKPath=C:/Users/DELL/Downloads/abcss-dev.pem&3t.sshUsePKPassphrase=false&3t.databases=admin";
 let offlineUrl = "mongodb://localhost:27017/abc_local";
 
 app.get('/', function (req, res) {
@@ -29,10 +29,6 @@ app.get('/dumpData', async function (req, res) {
         Bucket: credential.bucketname
       }
     });
-
-    let urL = "mongodb://jamba:!2cQaK79.7CUQk@cluster0-shard-00-00.q2olu.mongodb.net:27017,cluster0-shard-00-01.q2olu.mongodb.net:27017,cluster0-shard-00-02.q2olu.mongodb.net:27017/<dbname>?authSource=admin&replicaSet=atlas-t6ajrt-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass%20Community&retryWrites=true&ssl=true";
-
-
     let date = new Date();
     let day = ("0" + date.getDate()).slice(-2).toString(),
       month = ("0" + (date.getMonth() + 1)).slice(-2).toString(),
@@ -115,7 +111,6 @@ app.get('/dumpData', async function (req, res) {
 // This responds a GET request for the /list_user page.
 app.get('/restoreData', async function (req, res) {
   restored = await new Promise((resolve, reject) => {
-    let urL = "mongodb+srv://backup:CM%40h250194@cluster0.i80ep.mongodb.net/test?authSource=admin&replicaSet=atlas-k1shu9-shard-0&readPreference=primary&appname=MongoDB%20Compass%20Isolated%20Edition&ssl=true";
     AWS.config.update(credential);
     var s3 = new AWS.S3({ apiVersion: '2006-03-01' });
     let date = new Date();
@@ -140,13 +135,13 @@ app.get('/restoreData', async function (req, res) {
       resolve({ message: 'File Stream:' + err })
     }).on('close', function () {
       console.log('Done.');
-      if (urL) {
+      if (onlineUrl) {
         const cron = require('node-cron');
         const childProcess = require('child_process');
         const spawn = childProcess.spawn;
 
         let restoreProcess = spawn('mongorestore', [
-          '--uri=' + urL,
+          '--uri=' + onlineUrl,
           '--gzip',
           '--archive=./backup-data/' + fileName,
           '--drop',
