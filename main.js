@@ -140,17 +140,18 @@ app.get('/restoreData', async function (req, res) {
         const cron = require('node-cron');
         const childProcess = require('child_process');
         const spawn = childProcess.spawn;
-
+	console.log(143)
         let restoreProcess = spawn('mongorestore', [
           '--uri=' + onlineUrl,
           '--gzip',
           '--archive=./backup-data/' + fileName,
           '--drop',
-          '--nsFrom="<dbname>.*"',
-          '--nsTo="backup-data.*"'
+          '--nsFrom="abc_local.*"',
+          '--nsTo="abc_local.*"'
         ]);
-
+	console.log(153)
         restoreProcess.on('exit', (code, signal) => {
+			console.log(154)
           if (code) {
             console.log('restore process exited with code ', code);
             resolve({ message: 'Backup process exited with code ' })
