@@ -11,7 +11,7 @@ let credential = {
 let Db = require('mongodb').Db;
 let MongoClient = require('mongodb').MongoClient;
 let onlineUrl = "mongodb+srv://backup:CM%40h250194@cluster0.i80ep.mongodb.net/test?authSource=admin&replicaSet=atlas-k1shu9-shard-0&readPreference=primary&appname=MongoDB%20Compass%20Isolated%20Edition&ssl=true";
-let offlineUrl = "mongodb://192.168.100.179:27017/abc_local?authSource=admin&Community&retryWrites=true&ssl=true";
+let offlineUrl = "mongodb://localhost:27017/abc_local";
 
 app.get('/', function (req, res) {
   res.send('Hello World');
