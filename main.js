@@ -146,8 +146,8 @@ app.get('/restoreData', async function (req, res) {
           '--gzip',
           '--archive=./backup-data/' + fileName,
           '--drop',
-          '--nsFrom="abc_local.*"',
-          '--nsTo="abc_local.*"'
+          '--nsFrom=abc_local.*',
+          '--nsTo=ABC-dev.*'
         ]);
 	console.log(153)
         restoreProcess.on('exit', (code, signal) => {
