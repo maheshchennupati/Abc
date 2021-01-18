@@ -77,7 +77,7 @@ app.get('/dumpData', async function (req, res) {
                     }, function (err, data) {
                       console.log('Backup complete , you can download it from here - ', data)
                       try {
-                        fs.unlinkSync('./backup-data/' + fileName);
+                       // fs.unlinkSync('./backup-data/' + fileName);
                         console.log('successfully deleted ' + fileName);
 
                       } catch (err) {
@@ -111,6 +111,7 @@ app.get('/dumpData', async function (req, res) {
 // This responds a GET request for the /list_user page.
 app.get('/restoreData', async function (req, res) {
   restored = await new Promise((resolve, reject) => {
+	  console.log(114)
     AWS.config.update(credential);
     var s3 = new AWS.S3({ apiVersion: '2006-03-01' });
     let date = new Date();
