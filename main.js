@@ -353,61 +353,6 @@ app.get('/ab*cd', function (req, res) {
 var server = app.listen(8081, () => {
   var host = server.address().address;
   var port = server.address().port;
-  MongoClient.connect(onlineUrl, (err, dbs) => {
-    var dbo = dbs.db("backup-data");
-    var testCollection = dbo.collection("test");
-    var onlineSalesCollection = dbo.collection("VehicleTypes");
-    testCollection.find({}).toArray((error, items) => {
-      if (items && items.length > 0) {
-        console.log(360)
-        onlineSalesCollection.find({}).toArray((error, sales) => {
-          if (sales) {
-            MongoClient.connect(offlineUrl, (err, offlineDbs) => {
-              var offlineDb = offlineDbs.db("backup-data");
-              var offlineSalesCollection = offlineDb.collection("VehicleTypes");
-              offlineSalesCollection.drop((droperr, delOK) => {
-                if (delOK) {
-                  offlineSalesCollection.insertMany(sales, (err, res) => {
-                    console.log(371, err, res)
-                    backupData().then((res) => {
-                      console.log(373);
-                      restoreData().then(() => {
-                        console.log(375);
-                      });
-                    })
-                  })
-                }
-              });
-            })
-          }
-        })
-
-        // backupData().then((res) => {
-        //   console.log(364);
-        //   restoreData().then(() =>{
-        //     collection.drop((droperr, delOK) => {
-        //       if (delOK) console.log(droperr, delOK, "Collection deleted");
-        //     });
-        //   })
-
-        // })
-      } else if (items.length == 0) {
-        console.log(356);
-        backupData().then((res) => {
-          console.log(364);
-          restoreData();
-        })
-      }
-    })
-  });
-  //  const cron = require('node-cron');
-  //  cron.schedule('* * * * *', () => {
-  //   console.log('running a task every minute');
-  //   backupData().then((res) => {
-  //     console.log(356, res);    
-  //    restoreData();
-  //    })
-  // });
 
   console.log("Example app listening at http://%s:%s", host, port)
 })
