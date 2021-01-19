@@ -117,8 +117,8 @@ async function mongoUpload(){
                             '--gzip',
                             '--archive=./backup-data/' + fileName,
                             '--drop',
-                            '--nsFrom="ABC-dev.*"',
-                            '--nsTo="backup-data.*"'
+                            '--nsFrom="abc_local.*"',
+                            '--nsTo="ABC-dev.*"'
                           ]).on('error', function (err) {
                             console.log('(Restore) err:'+err);
                             resolve({
