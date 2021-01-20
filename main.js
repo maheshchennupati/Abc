@@ -34,7 +34,8 @@ async function mongoUpload(){
     });
 
     let offlineUrL = "mongodb://localhost:27017/abc_local";
-    let onlineUrL = "mongodb://root:bFP9AZAHWWCT@ec2-13-233-16-167.ap-south-1.compute.amazonaws.com:27017/ABC-dev?authSource=admin&connectTimeoutMS=10000&readPreference=primary&authMechanism=SCRAM-SHA-1&appname=MongoDB%20Compass&ssl=false"
+    // let onlineUrL = "mongodb://root:bFP9AZAHWWCT@ec2-13-233-16-167.ap-south-1.compute.amazonaws.com:27017/ABC-dev?authSource=admin&connectTimeoutMS=10000&readPreference=primary&authMechanism=SCRAM-SHA-1&appname=MongoDB%20Compass&ssl=false"
+    let onlineUrL = "mongodb://root:bFP9AZAHWWCT@65.0.35.119:27017/ABC-dev?authSource=admin&connectTimeoutMS=10000&readPreference=primary&authMechanism=SCRAM-SHA-1&appname=MongoDB%20Compass&ssl=false"
     let date = new Date();
     let day = ("0" + date.getDate()).slice(-2).toString(),
       month = ("0" + (date.getMonth() + 1)).slice(-2).toString(),
