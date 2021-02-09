@@ -4,8 +4,8 @@ let AWS = require('aws-sdk');
 let fs = require('fs');
 const { compileFunction } = require('vm');
 let credential = {
-  accessKeyId: 'AKIAIRHEWHIADE36CVTQ',
-  secretAccessKey: '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',
+  accessKeyId: 'AKIAIWFCX7ZGZVKJIAGA',
+  secretAccessKey: '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',
   region: 'ap-south-1',
   bucketname: 'abcssbackup'
 };
